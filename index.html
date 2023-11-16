@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalized News Feed</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #e0f2f1; /* Background color in a light green shade */
+    }
+
+    header {
+      background-color: #4CAF50; /* Dark green */
+      color: #fff;
+      text-align: center;
+      padding: 1em;
+    }
+
+    section {
+      padding: 1em;
+    }
+
+    #sourceSelection {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+
+    .source {
+      margin: 0.5em;
+      padding: 1em;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      background-color: #fff; /* Background color for sources */
+    }
+
+    .source:hover {
+      background-color: #e0f2f1; /* Light green on hover */
+    }
+
+    .source.selected {
+      background-color: #00796b; /* Dark green for selected source */
+      color: white;
+    }
+
+    button {
+      padding: 0.5em 1em;
+      background-color: #00796b; /* Dark green for buttons */
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #004d40; /* Darker green on hover for buttons */
+    }
+
+    #articleDisplay {
+      margin-top: 1em;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Personalized News Feed</h1>
+  </header>
+
+  <section>
+    <h2>Choose Your News Sources</h2>
+    <div id="sourceSelection">
+      <div class="source" onclick="toggleSource('CNN')">CNN</div>
+      <div class="source" onclick="toggleSource('BBC')">BBC</div>
+      <div class="source" onclick="toggleSource('PolsatNews')">Polsat News</div>
+      <div class="source" onclick="toggleSource('TVPInfo')">TVP Info</div>
+      <div class="source" onclick="toggleSource('TVN24')">TVN24</div>
+    </div>
+    <button onclick="getSelectedSources()">Get Articles</button>
+  </section>
+
+  <section id="articleDisplay">
+    <!-- Articles with thumbnails will be displayed here -->
+  </section>
+
+  <script>
+    let selectedSources = [];
+
+    function toggleSource(source) {
+      const index = selectedSources.indexOf(source);
+      if (index === -1) {
+        selectedSources.push(source);
+      } else {
+        selectedSources.splice(index, 1);
+      }
+
+      // Toggle background color to indicate selection
+      const sourceElement = document.querySelector(`.source:contains('${source}')`);
+      sourceElement.classList.toggle('selected');
+    }
+
+    function getSelectedSources() {
+      const articleDisplay = document.getElementById('articleDisplay');
+      articleDisplay.innerHTML = ''; // Clear previous articles
+
+      // Fetch articles from selected sources (simulated data)
+      selectedSources.forEach(source => {
+        const articleContainer = document.createElement('div');
+        articleContainer.className = 'article-container';
+
+        const thumbnail = document.createElement('img');
+        thumbnail.src = `placeholder_${source}.jpg`; // Replace with actual image URLs
+        thumbnail.alt = `${source} thumbnail`;
+        thumbnail.className = 'thumbnail';
+        articleContainer.appendChild(thumbnail);
+
+        const article = document.createElement('div');
+        article.textContent = `Article from ${source}`;
+        articleContainer.appendChild(article);
+
+        articleDisplay.appendChild(articleContainer);
+      });
+    }
+
+    // Helper function to implement :contains selector
+    // (not supported in native JavaScript)
+    // Source: https://stackoverflow.com/a/298758/8713795
+    ;(function(){
+      var contains = function(r,o){ 
+        var a = r.childNodes, l = a.length, i = -1; 
+        while( (i+=1) < l ) if(a[i]===o) return true; 
+        return false; 
+      };
+
+      HTMLElement.prototype.contains = function(o){ return contains(this, o); };
+      NodeList.prototype.contains = HTMLCollection.prototype.contains = function(o){ 
+        return contains(this, o); 
+      };
+    })();
+  </script>
+</body>
+</html>

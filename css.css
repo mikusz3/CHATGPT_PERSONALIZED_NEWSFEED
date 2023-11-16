@@ -1,0 +1,56 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #4CAF50; /* Green */
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+section {
+  padding: 1em;
+}
+
+#sourceSelection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.source {
+  margin: 0.5em;
+  padding: 1em;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.source:hover {
+  background-color: #e0f2f1; /* Light green */
+}
+
+.source.selected {
+  background-color: #00796b; /* Dark green */
+  color: white;
+}
+
+button {
+  padding: 0.5em 1em;
+  background-color: #00796b; /* Dark green */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #004d40; /* Darker green */
+}
+
+#articleDisplay {
+  margin-top: 1em;
+}
